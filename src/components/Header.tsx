@@ -6,7 +6,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { User, Menu, LogOut, Home } from "lucide-react";
+import { User, Menu, LogOut, Home, HelpCircle, Info } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
@@ -21,12 +21,30 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Header = () => {
   const location = useLocation();
   const { user, signOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToQuiz = () => {
+    const element = document.getElementById('quiz-section');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.href = '/quiz';
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -42,49 +60,57 @@ const Header = () => {
           </div>
         </Link>
 
-        {/* Navigation Menu */}
-        <NavigationMenu className="hidden md:flex">
+        {/* Secondary Navigation - Hidden on mobile */}
+        <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuLink 
-                asChild
-                className={cn(
-                  navigationMenuTriggerStyle(),
-                  location.pathname === "/" && "bg-accent text-accent-foreground"
-                )}
+                className={cn(navigationMenuTriggerStyle(), "text-muted-foreground hover:text-foreground")}
+                href="#how-it-works"
               >
-                <Link to="/">Home</Link>
+                <HelpCircle className="w-4 h-4 mr-2" />
+                How It Works
               </NavigationMenuLink>
             </NavigationMenuItem>
             
             <NavigationMenuItem>
               <NavigationMenuLink 
-                asChild
-                className={cn(
-                  navigationMenuTriggerStyle(),
-                  location.pathname === "/quiz" && "bg-accent text-accent-foreground"
-                )}
+                className={cn(navigationMenuTriggerStyle(), "text-muted-foreground hover:text-foreground")}
+                href="#why-free"
               >
-                <Link to="/quiz">Quiz</Link>
+                <Info className="w-4 h-4 mr-2" />
+                Why It's Free
               </NavigationMenuLink>
             </NavigationMenuItem>
             
-            <NavigationMenuItem>
-              <NavigationMenuLink 
-                asChild
-                className={cn(
-                  navigationMenuTriggerStyle(),
-                  location.pathname === "/resources" && "bg-accent text-accent-foreground"
-                )}
-              >
-                <Link to="/resources">Resources</Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
+            {user && (
+              <NavigationMenuItem>
+                <NavigationMenuLink 
+                  asChild
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    location.pathname === "/resources" && "bg-accent text-accent-foreground"
+                  )}
+                >
+                  <Link to="/resources">My Toolkit</Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            )}
           </NavigationMenuList>
         </NavigationMenu>
 
-        {/* Login/Account Button */}
-        <div className="flex items-center space-x-2">
+        {/* Primary CTA and Account */}
+        <div className="flex items-center space-x-3">
+          {/* Primary CTA Button */}
+          <Button 
+            onClick={scrollToQuiz}
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 font-semibold"
+            size="sm"
+          >
+            Take the 3-Minute Quiz
+          </Button>
+
+          {/* Account/Login */}
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -103,7 +129,6 @@ const Header = () => {
           ) : (
             <Button variant="ghost" size="sm" className="hidden md:flex" asChild>
               <Link to="/auth">
-                <User className="w-4 h-4 mr-2" />
                 Login
               </Link>
             </Button>
@@ -116,59 +141,77 @@ const Header = () => {
                 <Menu className="w-4 h-4" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-full bg-peach">
+            <SheetContent side="right" className="w-full">
               <div className="flex flex-col space-y-6 mt-8">
-                <Link 
-                  to="/" 
-                  className="flex items-center space-x-3 text-lg font-medium text-peach-foreground hover:text-primary transition-colors"
-                  onClick={() => setIsOpen(false)}
+                {/* Mobile Primary CTA */}
+                <Button 
+                  onClick={() => {
+                    scrollToQuiz();
+                    setIsOpen(false);
+                  }}
+                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90 font-semibold w-full"
                 >
-                  <Home className="w-5 h-5" />
-                  <span>Home</span>
-                </Link>
+                  Take the 3-Minute Quiz
+                </Button>
                 
-                <Link 
-                  to="/quiz" 
-                  className="flex items-center space-x-3 text-lg font-medium text-peach-foreground hover:text-primary transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <span className="w-5 h-5 flex items-center justify-center text-sm font-bold bg-accent text-accent-foreground rounded">Q</span>
-                  <span>Quiz</span>
-                </Link>
-                
-                <Link 
-                  to="/resources" 
-                  className="flex items-center space-x-3 text-lg font-medium text-peach-foreground hover:text-primary transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <span className="w-5 h-5 flex items-center justify-center text-sm font-bold bg-accent text-accent-foreground rounded">R</span>
-                  <span>Resources</span>
-                </Link>
-
-                {user ? (
-                  <Button 
-                    variant="secondary" 
-                    className="w-fit" 
+                <div className="border-t pt-4 space-y-4">
+                  <button 
+                    className="flex items-center space-x-3 text-lg font-medium text-foreground hover:text-primary transition-colors w-full text-left"
                     onClick={() => {
-                      signOut();
+                      document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
                       setIsOpen(false);
                     }}
                   >
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Sign Out
-                  </Button>
-                ) : (
-                  <Button 
-                    variant="secondary" 
-                    className="w-fit" 
-                    asChild
+                    <HelpCircle className="w-5 h-5" />
+                    <span>How It Works</span>
+                  </button>
+                  
+                  <button 
+                    className="flex items-center space-x-3 text-lg font-medium text-foreground hover:text-primary transition-colors w-full text-left"
+                    onClick={() => {
+                      document.getElementById('why-free')?.scrollIntoView({ behavior: 'smooth' });
+                      setIsOpen(false);
+                    }}
                   >
-                    <Link to="/auth" onClick={() => setIsOpen(false)}>
-                      <User className="w-4 h-4 mr-2" />
-                      Login
-                    </Link>
-                  </Button>
-                )}
+                    <Info className="w-5 h-5" />
+                    <span>Why It's Free</span>
+                  </button>
+
+                  {user ? (
+                    <>
+                      <Link 
+                        to="/resources" 
+                        className="flex items-center space-x-3 text-lg font-medium text-foreground hover:text-primary transition-colors"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <User className="w-5 h-5" />
+                        <span>My Toolkit</span>
+                      </Link>
+                      <Button 
+                        variant="outline" 
+                        className="w-full" 
+                        onClick={() => {
+                          signOut();
+                          setIsOpen(false);
+                        }}
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Sign Out
+                      </Button>
+                    </>
+                  ) : (
+                    <Button 
+                      variant="outline" 
+                      className="w-full" 
+                      asChild
+                    >
+                      <Link to="/auth" onClick={() => setIsOpen(false)}>
+                        <User className="w-4 h-4 mr-2" />
+                        Login
+                      </Link>
+                    </Button>
+                  )}
+                </div>
               </div>
             </SheetContent>
           </Sheet>
