@@ -62,6 +62,16 @@ export default {
 					foreground: 'hsl(var(--card-foreground))',
 					subtle: 'hsl(var(--card-subtle))'
 				},
+				peach: {
+					DEFAULT: 'hsl(var(--peach))',
+					foreground: 'hsl(var(--peach-foreground))',
+					soft: 'hsl(var(--peach-soft))'
+				},
+				oat: {
+					DEFAULT: 'hsl(var(--oat))',
+					foreground: 'hsl(var(--oat-foreground))',
+					soft: 'hsl(var(--oat-soft))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

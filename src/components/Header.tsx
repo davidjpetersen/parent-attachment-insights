@@ -6,7 +6,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { User, Menu, LogOut } from "lucide-react";
+import { User, Menu, LogOut, Home } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
@@ -16,10 +16,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { useState } from "react";
 
 const Header = () => {
   const location = useLocation();
   const { user, signOut } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -103,9 +110,68 @@ const Header = () => {
           )}
           
           {/* Mobile menu button */}
-          <Button variant="ghost" size="sm" className="md:hidden">
-            <Menu className="w-4 h-4" />
-          </Button>
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="sm" className="md:hidden">
+                <Menu className="w-4 h-4" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-full bg-peach">
+              <div className="flex flex-col space-y-6 mt-8">
+                <Link 
+                  to="/" 
+                  className="flex items-center space-x-3 text-lg font-medium text-peach-foreground hover:text-primary transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Home className="w-5 h-5" />
+                  <span>Home</span>
+                </Link>
+                
+                <Link 
+                  to="/quiz" 
+                  className="flex items-center space-x-3 text-lg font-medium text-peach-foreground hover:text-primary transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="w-5 h-5 flex items-center justify-center text-sm font-bold bg-accent text-accent-foreground rounded">Q</span>
+                  <span>Quiz</span>
+                </Link>
+                
+                <Link 
+                  to="/resources" 
+                  className="flex items-center space-x-3 text-lg font-medium text-peach-foreground hover:text-primary transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="w-5 h-5 flex items-center justify-center text-sm font-bold bg-accent text-accent-foreground rounded">R</span>
+                  <span>Resources</span>
+                </Link>
+
+                {user ? (
+                  <Button 
+                    variant="secondary" 
+                    className="w-fit" 
+                    onClick={() => {
+                      signOut();
+                      setIsOpen(false);
+                    }}
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </Button>
+                ) : (
+                  <Button 
+                    variant="secondary" 
+                    className="w-fit" 
+                    asChild
+                  >
+                    <Link to="/auth" onClick={() => setIsOpen(false)}>
+                      <User className="w-4 h-4 mr-2" />
+                      Login
+                    </Link>
+                  </Button>
+                )}
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>
