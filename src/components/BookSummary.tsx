@@ -5,14 +5,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { BookOpen, Clock, Star, Users, Target, Brain, Heart, CheckCircle } from "lucide-react";
+import { useBookProgress } from "@/hooks/useBookProgress";
+import { useAuth } from "@/hooks/useAuth";
+import { BookData } from "@/hooks/useBookData";
 
 interface BookSummaryProps {
-  data: any; // In a real app, you'd have a proper type definition
+  data: BookData;
 }
 
 const BookSummary = ({ data }: BookSummaryProps) => {
-  const [readingProgress, setReadingProgress] = useState(25);
+  const { user } = useAuth();
+  const { progress, updateProgress } = useBookProgress(data.id);
   const [expandedChapter, setExpandedChapter] = useState<number | null>(null);
+  
+  const readingProgress = progress?.progress_percentage || 0;
 
   const toggleChapter = (chapterNumber: number) => {
     setExpandedChapter(expandedChapter === chapterNumber ? null : chapterNumber);
@@ -65,8 +71,9 @@ const BookSummary = ({ data }: BookSummaryProps) => {
               <Button 
                 size="sm" 
                 variant="outline" 
-                onClick={() => setReadingProgress(Math.min(readingProgress + 10, 100))}
+                onClick={() => updateProgress({ progressPercentage: Math.min(readingProgress + 10, 100) })}
                 className="hover:bg-primary-soft hover:text-primary hover:border-primary"
+                disabled={!user}
               >
                 Mark Progress
               </Button>
@@ -74,6 +81,11 @@ const BookSummary = ({ data }: BookSummaryProps) => {
                 size="sm" 
                 variant="outline"
                 className="hover:bg-accent-soft hover:text-accent hover:border-accent"
+                onClick={() => {
+                  const newBookmarks = [...(progress?.bookmarks || []), { chapter: expandedChapter, timestamp: new Date().toISOString() }];
+                  updateProgress({ bookmarks: newBookmarks });
+                }}
+                disabled={!user}
               >
                 Add Bookmark
               </Button>
