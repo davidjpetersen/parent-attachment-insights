@@ -11,6 +11,7 @@ import Quiz from "./pages/Quiz";
 import Bookshelf from "./pages/Bookshelf";
 import BookDetail from "./pages/BookDetail";
 import AdminDashboard from "./pages/AdminDashboard";
+import MembersDashboard from "./pages/MembersDashboard";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
