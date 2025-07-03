@@ -90,7 +90,7 @@ const Header = () => {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="hidden md:flex">
                   <User className="w-4 h-4 mr-2" />
-                  Account
+                  {user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Account'}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
