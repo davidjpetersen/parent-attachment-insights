@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./hooks/useAuth";
 import Header from "./components/Header";
 import Index from "./pages/Index";
+import Quiz from "./pages/Quiz";
 import Bookshelf from "./pages/Bookshelf";
 import BookDetail from "./pages/BookDetail";
 import Auth from "./pages/Auth";
@@ -59,7 +60,7 @@ const AppContent = () => (
         } />
         <Route path="/quiz" element={
           <ProtectedRoute>
-            <NotFound />
+            <Quiz />
           </ProtectedRoute>
         } />
         <Route path="/resources" element={
