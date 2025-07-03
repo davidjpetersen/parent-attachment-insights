@@ -72,7 +72,8 @@ const MembersDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      {/* Main Container */}
+      <div className="container mx-auto max-w-4xl px-4 py-8">
         {/* Welcome Header */}
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
@@ -83,61 +84,61 @@ const MembersDashboard = () => {
           </p>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Quiz Progress</CardTitle>
-              <CheckCircle className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{quizProgress}%</div>
-              <Progress value={quizProgress} className="mt-2" />
-              <p className="text-xs text-muted-foreground mt-2">
-                {isQuizCompleted ? "Complete! 🎉" : "Complete your assessment"}
-              </p>
-            </CardContent>
-          </Card>
+        {/* Single Column Layout */}
+        <div className="space-y-8">
+          {/* Quick Stats - Half-width cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Quiz Progress</CardTitle>
+                <CheckCircle className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{quizProgress}%</div>
+                <Progress value={quizProgress} className="mt-2" />
+                <p className="text-xs text-muted-foreground mt-2">
+                  {isQuizCompleted ? "Complete! 🎉" : "Complete your assessment"}
+                </p>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Member Since</CardTitle>
-              <Clock className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">
-                {profile?.member_since 
-                  ? new Date(profile.member_since).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-                  : 'Today'
-                }
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Part of the Familying community
-              </p>
-            </CardContent>
-          </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Member Since</CardTitle>
+                <Clock className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {profile?.member_since 
+                    ? new Date(profile.member_since).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+                    : 'Today'
+                  }
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Part of the Familying community
+                </p>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Your Style</CardTitle>
-              <Star className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">
-                {profile?.parenting_style || "Discovering"}
-              </div>
-              <p className="text-xs text-muted-foreground">
-                {profile?.parenting_style ? "Based on your quiz" : "Complete quiz to discover"}
-              </p>
-            </CardContent>
-          </Card>
-        </div>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Your Style</CardTitle>
+                <Star className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {profile?.parenting_style || "Discovering"}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {profile?.parenting_style ? "Based on your quiz" : "Complete quiz to discover"}
+                </p>
+              </CardContent>
+            </Card>
+          </div>
 
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Next Steps / Quiz CTA */}
+          {/* Main Content - Full-width */}
           {!isQuizCompleted ? (
-            <Card className="lg:col-span-2 bg-gradient-primary text-primary-foreground">
+            <Card className="bg-gradient-primary text-primary-foreground">
               <CardHeader>
                 <CardTitle className="text-2xl flex items-center gap-2">
                   <Brain className="h-6 w-6" />
@@ -168,7 +169,6 @@ const MembersDashboard = () => {
               </CardContent>
             </Card>
           ) : (
-            /* Personalized Toolkit */
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -205,71 +205,72 @@ const MembersDashboard = () => {
             </Card>
           )}
 
-          {/* Recent Activity / Resources */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5" />
-                Trending Resources
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="border-l-4 border-primary pl-4">
-                  <h4 className="font-medium">Managing Bedtime Battles</h4>
-                  <p className="text-sm text-muted-foreground">Gentle strategies for peaceful nights</p>
-                </div>
-                
-                <div className="border-l-4 border-accent pl-4">
-                  <h4 className="font-medium">Sibling Rivalry Solutions</h4>
-                  <p className="text-sm text-muted-foreground">Building cooperation, not competition</p>
-                </div>
-                
-                <div className="border-l-4 border-secondary pl-4">
-                  <h4 className="font-medium">Screen Time Balance</h4>
-                  <p className="text-sm text-muted-foreground">Healthy boundaries in a digital world</p>
-                </div>
-
-                <Button variant="outline" asChild className="w-full">
-                  <Link to="/resources">
-                    Browse All Resources
-                  </Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Community / Support */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5" />
-                Community Support
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="text-center py-6">
-                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Users className="w-8 h-8 text-white" />
+          {/* Content Grid - Half-width cards when needed */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5" />
+                  Trending Resources
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="border-l-4 border-primary pl-4">
+                    <h4 className="font-medium">Managing Bedtime Battles</h4>
+                    <p className="text-sm text-muted-foreground">Gentle strategies for peaceful nights</p>
                   </div>
-                  <h4 className="font-medium mb-2">Join the Community</h4>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Connect with other parents on similar journeys
-                  </p>
-                  <Badge variant="outline">Coming Soon</Badge>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                  
+                  <div className="border-l-4 border-accent pl-4">
+                    <h4 className="font-medium">Sibling Rivalry Solutions</h4>
+                    <p className="text-sm text-muted-foreground">Building cooperation, not competition</p>
+                  </div>
+                  
+                  <div className="border-l-4 border-secondary pl-4">
+                    <h4 className="font-medium">Screen Time Balance</h4>
+                    <p className="text-sm text-muted-foreground">Healthy boundaries in a digital world</p>
+                  </div>
 
-          {/* Quick Tools */}
+                  <Button variant="outline" asChild className="w-full">
+                    <Link to="/resources">
+                      Browse All Resources
+                    </Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="h-5 w-5" />
+                  Community Support
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="text-center py-6">
+                    <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Users className="w-8 h-8 text-white" />
+                    </div>
+                    <h4 className="font-medium mb-2">Join the Community</h4>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Connect with other parents on similar journeys
+                    </p>
+                    <Badge variant="outline">Coming Soon</Badge>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Quick Tools - Full-width */}
           <Card>
             <CardHeader>
               <CardTitle>Quick Tools</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <Button variant="outline" asChild>
                   <Link to="/quiz">
                     <Brain className="w-4 h-4 mr-2" />
