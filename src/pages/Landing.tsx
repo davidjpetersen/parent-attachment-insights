@@ -15,9 +15,9 @@ const Landing = () => {
               <BookOpen className="w-12 h-12" />
             </div>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
             Strengthen Your
-            <span className="text-accent"> Family Together</span>
+            <span className="text-white"> Family Together</span>
           </h1>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
             Discover evidence-based parenting insights, take personalized quizzes, and access 
