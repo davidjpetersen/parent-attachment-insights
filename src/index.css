@@ -20,34 +20,34 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 15%;
 
-    /* Familying.org Brand Colors */
-    --primary: 210 56% 67%; /* Blueberry - Navigation, primary headings, trust indicators */
+    /* Calm & Neutral Brand Colors */
+    --primary: 220 13% 69%; /* Soft slate blue - Navigation, primary headings, trust indicators */
     --primary-foreground: 0 0% 100%;
-    --primary-soft: 210 56% 95%;
+    --primary-soft: 220 13% 96%;
 
-    /* Tangerine - CTA buttons, warm accents, icons */
-    --secondary: 13 84% 66%;
+    /* Warm gray - CTA buttons, warm accents, icons */
+    --secondary: 30 8% 52%;
     --secondary-foreground: 0 0% 100%;
-    --secondary-soft: 13 84% 95%;
+    --secondary-soft: 30 8% 96%;
 
     /* Muted tones for supporting content */
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    --muted: 220 9% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    /* Citrus - Highlights, badges, onboarding cues */
-    --accent: 54 67% 66%;
+    /* Soft sage - Highlights, badges, onboarding cues */
+    --accent: 120 15% 68%;
     --accent-foreground: 0 0% 100%;
-    --accent-soft: 54 67% 95%;
+    --accent-soft: 120 15% 96%;
 
-    /* Peach - Backgrounds, modals, hero sections */
-    --peach: 33 87% 77%;
-    --peach-foreground: 240 10% 15%;
-    --peach-soft: 33 87% 95%;
+    /* Warm cream - Backgrounds, modals, hero sections */
+    --peach: 45 25% 88%;
+    --peach-foreground: 220 13% 20%;
+    --peach-soft: 45 25% 96%;
 
-    /* Oat - Surfaces, cards, footers */
-    --oat: 42 20% 70%;
-    --oat-foreground: 240 10% 15%;
-    --oat-soft: 42 20% 95%;
+    /* Cool gray - Surfaces, cards, footers */
+    --oat: 210 11% 85%;
+    --oat-foreground: 220 13% 20%;
+    --oat-soft: 210 11% 96%;
 
     /* Success and error states */
     --success: 142 76% 36%;
@@ -68,12 +68,12 @@ All colors MUST be HSL.
     --radius-sm: 0.75rem;
     --radius-lg: 1.5rem;
 
-    /* Gradients for modern appeal */
-    --gradient-primary: linear-gradient(135deg, hsl(260 100% 65%), hsl(280 100% 70%));
-    --gradient-secondary: linear-gradient(135deg, hsl(25 100% 60%), hsl(45 100% 65%));
-    --gradient-accent: linear-gradient(135deg, hsl(160 84% 52%), hsl(180 84% 57%));
-    --gradient-subtle: linear-gradient(135deg, hsl(240 10% 98%), hsl(240 5% 96%));
-    --gradient-hero: linear-gradient(135deg, hsl(260 100% 65%) 0%, hsl(280 100% 70%) 50%, hsl(160 84% 52%) 100%);
+    /* Calm gradients for modern appeal */
+    --gradient-primary: linear-gradient(135deg, hsl(220 13% 69%), hsl(220 13% 75%));
+    --gradient-secondary: linear-gradient(135deg, hsl(30 8% 52%), hsl(30 8% 62%));
+    --gradient-accent: linear-gradient(135deg, hsl(120 15% 68%), hsl(120 15% 75%));
+    --gradient-subtle: linear-gradient(135deg, hsl(220 9% 98%), hsl(220 9% 96%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 13% 69%) 0%, hsl(120 15% 68%) 50%, hsl(210 11% 85%) 100%);
 
     /* Shadows for depth */
     --shadow-sm: 0 2px 8px -2px hsl(240 10% 15% / 0.08);
