@@ -8,136 +8,133 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Modern gradient background - WCAG compliant */
+    /* Modern, clean wellness-focused color palette inspired by the reference designs */
     --background: 0 0% 100%;
-    --foreground: 220 13% 18%;
+    --foreground: 222 15% 20%;
 
-    /* Card system with sufficient contrast */
+    /* Soft, elevated card system */
     --card: 0 0% 100%;
-    --card-foreground: 220 13% 18%;
-    --card-subtle: 220 10% 97%;
+    --card-foreground: 222 15% 20%;
+    --card-subtle: 210 40% 98%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 18%;
+    --popover-foreground: 222 15% 20%;
 
-    /* WCAG 2.2 AA Compliant Colors - 4.5:1 contrast minimum */
-    --primary: 220 13% 45%; /* Darker for better contrast with white text */
+    /* Primary: Warm, trustworthy blue-gray (inspired by wellness apps) */
+    --primary: 217 33% 42%;
     --primary-foreground: 0 0% 100%;
-    --primary-soft: 220 13% 96%;
+    --primary-soft: 217 33% 96%;
 
-    /* Darker warm gray for proper contrast */
-    --secondary: 30 8% 35%;
+    /* Secondary: Warm sage green (calming, natural) */
+    --secondary: 142 25% 45%;
     --secondary-foreground: 0 0% 100%;
-    --secondary-soft: 30 8% 96%;
+    --secondary-soft: 142 25% 96%;
 
-    /* Improved contrast for muted content */
-    --muted: 220 9% 96%;
-    --muted-foreground: 220 9% 35%; /* Darker for 4.5:1 contrast */
+    /* Muted: Soft, readable grays */
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    /* Darker sage for better contrast */
-    --accent: 120 15% 45%;
+    /* Accent: Fresh mint green (inspired by wellness/health apps) */
+    --accent: 158 58% 42%;
     --accent-foreground: 0 0% 100%;
-    --accent-soft: 120 15% 96%;
+    --accent-soft: 158 58% 96%;
 
-    /* Cream backgrounds with proper contrast */
-    --peach: 45 25% 90%;
-    --peach-foreground: 220 13% 18%; /* High contrast dark text */
-    --peach-soft: 45 25% 96%;
+    /* Warm, approachable cream tones */
+    --peach: 25 85% 94%;
+    --peach-foreground: 222 15% 20%;
+    --peach-soft: 25 85% 98%;
 
-    /* Gray surfaces with proper contrast */
-    --oat: 210 11% 87%;
-    --oat-foreground: 220 13% 18%; /* High contrast dark text */
-    --oat-soft: 210 11% 96%;
+    /* Cool, professional gray-blue */
+    --oat: 210 20% 90%;
+    --oat-foreground: 222 15% 20%;
+    --oat-soft: 210 20% 96%;
 
-    /* Success and error states - WCAG compliant */
-    --success: 142 76% 25%; /* Darker for better contrast */
+    /* Success: Fresh, positive green */
+    --success: 142 71% 35%;
     --success-foreground: 0 0% 100%;
-    --success-soft: 142 76% 95%;
+    --success-soft: 142 71% 95%;
 
-    --destructive: 0 84% 45%; /* Darker for better contrast */
+    /* Destructive: Warm, accessible coral-red (like the CTA buttons in references) */
+    --destructive: 14 85% 52%;
     --destructive-foreground: 0 0% 100%;
-    --destructive-soft: 0 84% 95%;
+    --destructive-soft: 14 85% 95%;
 
-    /* Border and input styling with proper contrast */
-    --border: 220 13% 85%;
-    --input: 220 13% 85%;
-    --ring: 220 13% 45%; /* Match primary for consistency */
+    /* Clean, subtle borders and inputs */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 33% 42%;
 
-    /* Design system tokens */
-    --radius: 1rem;
-    --radius-sm: 0.75rem;
-    --radius-lg: 1.5rem;
+    /* Modern radius system */
+    --radius: 0.75rem;
+    --radius-sm: 0.5rem;
+    --radius-lg: 1rem;
 
-    /* WCAG compliant gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(220 13% 45%), hsl(220 13% 50%));
-    --gradient-secondary: linear-gradient(135deg, hsl(30 8% 35%), hsl(30 8% 40%));
-    --gradient-accent: linear-gradient(135deg, hsl(120 15% 45%), hsl(120 15% 50%));
-    --gradient-subtle: linear-gradient(135deg, hsl(220 9% 99%), hsl(220 9% 97%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 13% 45%) 0%, hsl(120 15% 45%) 50%, hsl(210 11% 50%) 100%);
+    /* Sophisticated gradients inspired by wellness apps */
+    --gradient-primary: linear-gradient(135deg, hsl(217 33% 42%), hsl(217 33% 52%));
+    --gradient-secondary: linear-gradient(135deg, hsl(142 25% 45%), hsl(142 25% 55%));
+    --gradient-accent: linear-gradient(135deg, hsl(158 58% 42%), hsl(158 58% 52%));
+    --gradient-subtle: linear-gradient(135deg, hsl(210 40% 99%), hsl(210 40% 96%));
+    --gradient-hero: linear-gradient(135deg, hsl(217 33% 42%) 0%, hsl(158 58% 42%) 50%, hsl(142 25% 45%) 100%);
+    --gradient-warm: linear-gradient(135deg, hsl(25 85% 94%), hsl(25 85% 90%));
 
-    /* Shadows with proper contrast */
-    --shadow-sm: 0 2px 8px -2px hsl(220 13% 18% / 0.10);
-    --shadow-md: 0 4px 16px -4px hsl(220 13% 18% / 0.15);
-    --shadow-lg: 0 8px 32px -8px hsl(220 13% 18% / 0.20);
-    --shadow-colored: 0 8px 32px -8px hsl(220 13% 45% / 0.25);
+    /* Elegant shadows with color tints */
+    --shadow-sm: 0 2px 8px -2px hsl(222 15% 20% / 0.08);
+    --shadow-md: 0 4px 16px -4px hsl(222 15% 20% / 0.12);
+    --shadow-lg: 0 8px 32px -8px hsl(222 15% 20% / 0.15);
+    --shadow-colored: 0 8px 32px -8px hsl(217 33% 42% / 0.20);
 
-    /* Animation tokens */
+    /* Smooth, modern animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-foreground: 222 15% 20%;
+    --sidebar-primary: 217 33% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 15% 20%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 217 33% 42%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    /* Dark mode with sophisticated wellness app styling */
+    --background: 222 20% 7%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 222 20% 9%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 222 20% 9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 217 33% 65%;
+    --primary-foreground: 222 20% 7%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 142 25% 65%;
+    --secondary-foreground: 222 20% 7%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 222 20% 15%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 158 58% 65%;
+    --accent-foreground: 222 20% 7%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 14 85% 65%;
+    --destructive-foreground: 222 20% 7%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 222 20% 15%;
+    --input: 222 20% 15%;
+    --ring: 217 33% 65%;
+
+    --sidebar-background: 222 20% 7%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 217 33% 65%;
+    --sidebar-primary-foreground: 222 20% 7%;
+    --sidebar-accent: 222 20% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 222 20% 15%;
+    --sidebar-ring: 217 33% 65%;
   }
 }
 
