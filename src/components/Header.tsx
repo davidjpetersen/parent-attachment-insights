@@ -103,10 +103,10 @@ const Header = () => {
 
         {/* Primary CTA and Account */}
         <div className="flex items-center space-x-3">
-          {/* Primary CTA Button */}
+          {/* Primary CTA Button - Hidden on mobile */}
           <Button 
             onClick={scrollToQuiz}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 font-semibold"
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 font-semibold hidden sm:flex"
             size="sm"
           >
             Take the 3-Minute Quiz
