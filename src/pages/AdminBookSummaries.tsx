@@ -8,7 +8,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { BookOpen, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BookTable } from "@/components/admin/BookTable";
-import { EditBookDialog } from "@/components/admin/EditBookDialog";
 import { AddBookForm } from "@/components/admin/AddBookForm";
 import { ContentTypesGrid } from "@/components/admin/ContentTypesGrid";
 
@@ -22,21 +21,12 @@ interface Book {
   created_at: string;
 }
 
-type BookFormValues = {
-  title: string;
-  author: string;
-  publication_year?: string | number;
-  genre?: string;
-  target_audience?: string;
-};
 
 const AdminBookSummaries = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [newBookTitle, setNewBookTitle] = useState("");
   const [newBookAuthor, setNewBookAuthor] = useState("");
-  const [editingBook, setEditingBook] = useState<Book | null>(null);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -102,49 +92,6 @@ const AdminBookSummaries = () => {
     }
   };
 
-  const openEditDialog = (book: Book) => {
-    setEditingBook(book);
-    setIsEditDialogOpen(true);
-  };
-
-  const updateBook = async (values: BookFormValues) => {
-    if (!editingBook) return;
-
-    try {
-      const updateData: any = {
-        title: values.title,
-        author: values.author,
-        genre: values.genre || null,
-        target_audience: values.target_audience || null,
-      };
-
-      if (values.publication_year && values.publication_year !== "") {
-        updateData.publication_year = parseInt(values.publication_year.toString());
-      }
-
-      const { error } = await supabase
-        .from('books')
-        .update(updateData)
-        .eq('id', editingBook.id);
-
-      if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: "Book updated successfully",
-      });
-
-      setIsEditDialogOpen(false);
-      setEditingBook(null);
-      fetchBooks();
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to update book",
-        variant: "destructive",
-      });
-    }
-  };
 
   const deleteBook = async (book: Book) => {
     try {
@@ -223,7 +170,6 @@ const AdminBookSummaries = () => {
             <CardContent>
               <BookTable 
                 books={books} 
-                onEditBook={openEditDialog} 
                 onDeleteBook={deleteBook} 
               />
             </CardContent>
@@ -245,12 +191,6 @@ const AdminBookSummaries = () => {
         </TabsContent>
       </Tabs>
 
-      <EditBookDialog
-        book={editingBook}
-        open={isEditDialogOpen}
-        onOpenChange={setIsEditDialogOpen}
-        onUpdateBook={updateBook}
-      />
     </div>
   );
 };

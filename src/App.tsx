@@ -12,6 +12,7 @@ import Bookshelf from "./pages/Bookshelf";
 import BookDetail from "./pages/BookDetail";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminBookSummaries from "./pages/AdminBookSummaries";
+import EditBookSummary from "./pages/EditBookSummary";
 import MembersDashboard from "./pages/MembersDashboard";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
@@ -104,6 +105,11 @@ const AppContent = () => (
         <Route path="/admin/book-summaries" element={
           <AdminRoute>
             <AdminBookSummaries />
+          </AdminRoute>
+        } />
+        <Route path="/admin/book-summaries/edit/:bookId" element={
+          <AdminRoute>
+            <EditBookSummary />
           </AdminRoute>
         } />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Edit, Trash } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface Book {
   id: string;
@@ -17,11 +18,10 @@ interface Book {
 
 interface BookTableProps {
   books: Book[];
-  onEditBook: (book: Book) => void;
   onDeleteBook: (book: Book) => void;
 }
 
-export const BookTable = ({ books, onEditBook, onDeleteBook }: BookTableProps) => {
+export const BookTable = ({ books, onDeleteBook }: BookTableProps) => {
   return (
     <>
       {/* Mobile view */}
@@ -52,10 +52,12 @@ export const BookTable = ({ books, onEditBook, onDeleteBook }: BookTableProps) =
                     <Button 
                       variant="outline" 
                       size="sm"
-                      onClick={() => onEditBook(book)}
+                      asChild
                       className="h-8 w-8 p-0"
                     >
-                      <Edit className="w-3 h-3" />
+                      <Link to={`/admin/book-summaries/edit/${book.id}`}>
+                        <Edit className="w-3 h-3" />
+                      </Link>
                     </Button>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
@@ -126,9 +128,11 @@ export const BookTable = ({ books, onEditBook, onDeleteBook }: BookTableProps) =
                     <Button 
                       variant="outline" 
                       size="sm"
-                      onClick={() => onEditBook(book)}
+                      asChild
                     >
-                      <Edit className="w-4 h-4" />
+                      <Link to={`/admin/book-summaries/edit/${book.id}`}>
+                        <Edit className="w-4 h-4" />
+                      </Link>
                     </Button>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
