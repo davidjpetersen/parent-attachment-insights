@@ -5,6 +5,9 @@ import UnauthenticatedHeader from "./UnauthenticatedHeader";
 const Header = () => {
   const { user, loading } = useAuth();
 
+  // Debug logging
+  console.log('Header rendering:', { user: !!user, loading, userEmail: user?.email });
+
   // Show loading state or return early if still loading
   if (loading) {
     return (
