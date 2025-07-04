@@ -6,10 +6,16 @@ import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useToast } from "@/components/ui/use-toast";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { BookOpen, Plus, Edit, Trash, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 
 interface Book {
   id: string;
@@ -21,12 +27,36 @@ interface Book {
   created_at: string;
 }
 
+const bookSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  author: z.string().min(1, "Author is required"),
+  publication_year: z.union([z.string(), z.number()]).optional(),
+  genre: z.string().optional(),
+  target_audience: z.string().optional(),
+});
+
+type BookFormValues = z.infer<typeof bookSchema>;
+
 const AdminBookSummaries = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [newBookTitle, setNewBookTitle] = useState("");
   const [newBookAuthor, setNewBookAuthor] = useState("");
+  const [editingBook, setEditingBook] = useState<Book | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [deletingBook, setDeletingBook] = useState<Book | null>(null);
   const { toast } = useToast();
+
+  const editForm = useForm<BookFormValues>({
+    resolver: zodResolver(bookSchema),
+    defaultValues: {
+      title: "",
+      author: "",
+      publication_year: "",
+      genre: "",
+      target_audience: "",
+    },
+  });
 
   useEffect(() => {
     fetchBooks();
@@ -86,6 +116,81 @@ const AdminBookSummaries = () => {
       toast({
         title: "Error",
         description: error.message || "Failed to add book",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const openEditDialog = (book: Book) => {
+    setEditingBook(book);
+    editForm.reset({
+      title: book.title,
+      author: book.author,
+      publication_year: book.publication_year || "",
+      genre: book.genre || "",
+      target_audience: book.target_audience || "",
+    });
+    setIsEditDialogOpen(true);
+  };
+
+  const updateBook = async (values: BookFormValues) => {
+    if (!editingBook) return;
+
+    try {
+      const updateData: any = {
+        title: values.title,
+        author: values.author,
+        genre: values.genre || null,
+        target_audience: values.target_audience || null,
+      };
+
+      if (values.publication_year && values.publication_year !== "") {
+        updateData.publication_year = parseInt(values.publication_year.toString());
+      }
+
+      const { error } = await supabase
+        .from('books')
+        .update(updateData)
+        .eq('id', editingBook.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Book updated successfully",
+      });
+
+      setIsEditDialogOpen(false);
+      setEditingBook(null);
+      fetchBooks();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to update book",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const deleteBook = async (book: Book) => {
+    try {
+      const { error } = await supabase
+        .from('books')
+        .delete()
+        .eq('id', book.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Book deleted successfully",
+      });
+
+      fetchBooks();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to delete book",
         variant: "destructive",
       });
     }
@@ -172,12 +277,38 @@ const AdminBookSummaries = () => {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => openEditDialog(book)}
+                          >
                             <Edit className="w-4 h-4" />
                           </Button>
-                          <Button variant="outline" size="sm">
-                            <Trash className="w-4 h-4" />
-                          </Button>
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button variant="outline" size="sm">
+                                <Trash className="w-4 h-4" />
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Delete Book</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  Are you sure you want to delete "{book.title}" by {book.author}? 
+                                  This action cannot be undone and will also delete all related content.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction 
+                                  onClick={() => deleteBook(book)}
+                                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                >
+                                  Delete
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
                         </div>
                       </TableCell>
                     </TableRow>
@@ -278,6 +409,100 @@ const AdminBookSummaries = () => {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Edit Book Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Edit Book</DialogTitle>
+            <DialogDescription>
+              Update book information and metadata.
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...editForm}>
+            <form onSubmit={editForm.handleSubmit(updateBook)} className="space-y-4">
+              <FormField
+                control={editForm.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Title</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Book title" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={editForm.control}
+                name="author"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Author</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Author name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={editForm.control}
+                  name="publication_year"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Publication Year</FormLabel>
+                      <FormControl>
+                        <Input 
+                          type="number" 
+                          placeholder="2024"
+                          {...field}
+                          value={field.value?.toString() || ""}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={editForm.control}
+                  name="genre"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Genre</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Parenting" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <FormField
+                control={editForm.control}
+                name="target_audience"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Target Audience</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Parents of toddlers" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <DialogFooter>
+                <Button type="button" variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                  Cancel
+                </Button>
+                <Button type="submit">Update Book</Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
