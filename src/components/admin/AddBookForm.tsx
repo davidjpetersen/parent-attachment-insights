@@ -25,28 +25,35 @@ export const AddBookForm = ({ title, author, onTitleChange, onAuthorChange, onAd
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-4">
           <div>
-            <Label htmlFor="bookTitle">Book Title</Label>
+            <Label htmlFor="bookTitle" className="text-base font-medium">Book Title</Label>
             <Input
               id="bookTitle"
               placeholder="Enter book title"
               value={title}
               onChange={(e) => onTitleChange(e.target.value)}
+              className="h-12 text-base"
             />
           </div>
           <div>
-            <Label htmlFor="bookAuthor">Author</Label>
+            <Label htmlFor="bookAuthor" className="text-base font-medium">Author</Label>
             <Input
               id="bookAuthor"
               placeholder="Enter author name"
               value={author}
               onChange={(e) => onAuthorChange(e.target.value)}
+              className="h-12 text-base"
             />
           </div>
         </div>
-        <Button onClick={onAddBook} disabled={!title.trim() || !author.trim()}>
-          <Plus className="w-4 h-4 mr-2" />
+        <Button 
+          onClick={onAddBook} 
+          disabled={!title.trim() || !author.trim()}
+          className="w-full h-12 text-base font-medium"
+          size="lg"
+        >
+          <Plus className="w-5 h-5 mr-2" />
           Add Book
         </Button>
       </CardContent>

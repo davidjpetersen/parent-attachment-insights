@@ -181,31 +181,32 @@ const AdminBookSummaries = () => {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
+    <div className="container mx-auto p-3 sm:p-6 space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex items-center space-x-2 sm:space-x-4">
           <Button variant="ghost" size="sm" asChild>
             <Link to="/admin">
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Admin
+              Back
             </Link>
           </Button>
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Book Summary Management</h1>
-            <p className="text-muted-foreground">Manage book summaries and related content</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Book Management</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">Manage book summaries and content</p>
           </div>
         </div>
-        <Badge variant="secondary" className="bg-primary/10 text-primary">
+        <Badge variant="secondary" className="bg-primary/10 text-primary self-start sm:self-center">
           <BookOpen className="w-4 h-4 mr-2" />
-          Content Manager
+          <span className="hidden sm:inline">Content Manager</span>
+          <span className="sm:hidden">Admin</span>
         </Badge>
       </div>
 
-      <Tabs defaultValue="books" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="books">Books Overview</TabsTrigger>
-          <TabsTrigger value="add-book">Add New Book</TabsTrigger>
-          <TabsTrigger value="content-types">Content Types</TabsTrigger>
+      <Tabs defaultValue="add-book" className="space-y-4">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="add-book" className="text-xs sm:text-sm">Add Book</TabsTrigger>
+          <TabsTrigger value="books" className="text-xs sm:text-sm">All Books</TabsTrigger>
+          <TabsTrigger value="content-types" className="text-xs sm:text-sm">Content</TabsTrigger>
         </TabsList>
 
         <TabsContent value="books" className="space-y-4">

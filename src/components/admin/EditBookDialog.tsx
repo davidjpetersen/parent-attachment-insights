@@ -64,7 +64,7 @@ export const EditBookDialog = ({ book, open, onOpenChange, onUpdateBook }: EditB
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Edit Book</DialogTitle>
           <DialogDescription>
@@ -80,7 +80,7 @@ export const EditBookDialog = ({ book, open, onOpenChange, onUpdateBook }: EditB
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input placeholder="Book title" {...field} />
+                    <Input placeholder="Book title" {...field} className="h-11" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -93,13 +93,13 @@ export const EditBookDialog = ({ book, open, onOpenChange, onUpdateBook }: EditB
                 <FormItem>
                   <FormLabel>Author</FormLabel>
                   <FormControl>
-                    <Input placeholder="Author name" {...field} />
+                    <Input placeholder="Author name" {...field} className="h-11" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <FormField
                 control={editForm.control}
                 name="publication_year"
@@ -112,6 +112,7 @@ export const EditBookDialog = ({ book, open, onOpenChange, onUpdateBook }: EditB
                         placeholder="2024"
                         {...field}
                         value={field.value?.toString() || ""}
+                        className="h-11"
                       />
                     </FormControl>
                     <FormMessage />
@@ -125,7 +126,7 @@ export const EditBookDialog = ({ book, open, onOpenChange, onUpdateBook }: EditB
                   <FormItem>
                     <FormLabel>Genre</FormLabel>
                     <FormControl>
-                      <Input placeholder="Parenting" {...field} />
+                      <Input placeholder="Parenting" {...field} className="h-11" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -139,17 +140,17 @@ export const EditBookDialog = ({ book, open, onOpenChange, onUpdateBook }: EditB
                 <FormItem>
                   <FormLabel>Target Audience</FormLabel>
                   <FormControl>
-                    <Input placeholder="Parents of toddlers" {...field} />
+                    <Input placeholder="Parents of toddlers" {...field} className="h-11" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <DialogFooter className="flex-col sm:flex-row gap-2">
+              <Button type="button" variant="outline" onClick={() => onOpenChange(false)} className="w-full sm:w-auto">
                 Cancel
               </Button>
-              <Button type="submit">Update Book</Button>
+              <Button type="submit" className="w-full sm:w-auto">Update Book</Button>
             </DialogFooter>
           </form>
         </Form>
