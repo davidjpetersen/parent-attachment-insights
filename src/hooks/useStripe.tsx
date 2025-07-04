@@ -31,24 +31,19 @@ export const StripeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     setIsProcessing(true);
     try {
-      // Call your backend to create a Stripe checkout session
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const { data, error } = await supabase.functions.invoke('create-checkout-session', {
+        body: {
           priceId,
-          userId: user.id,
-          userEmail: user.email,
-        }),
+          successUrl: `${window.location.origin}/payment-success`,
+          cancelUrl: `${window.location.origin}/payment-cancel`,
+        }
       });
 
-      const { sessionId, url } = await response.json();
+      if (error) throw error;
 
-      if (url) {
+      if (data?.url) {
         // Redirect to Stripe Checkout
-        window.location.href = url;
+        window.location.href = data.url;
       } else {
         throw new Error('Failed to create checkout session');
       }
@@ -69,20 +64,16 @@ export const StripeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     setIsProcessing(true);
     try {
-      const response = await fetch('/api/create-portal-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: user.id,
-        }),
+      const { data, error } = await supabase.functions.invoke('create-portal-session', {
+        body: {
+          returnUrl: window.location.origin
+        }
       });
 
-      const { url } = await response.json();
+      if (error) throw error;
 
-      if (url) {
-        window.location.href = url;
+      if (data?.url) {
+        window.location.href = data.url;
       }
     } catch (error) {
       console.error('Error creating portal session:', error);

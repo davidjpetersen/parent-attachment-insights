@@ -60,7 +60,7 @@ serve(async (req) => {
     // Check if customer already exists
     let customer
     const { data: profile } = await supabaseClient
-      .from('profiles')
+      .from('user_profiles')
       .select('stripe_customer_id')
       .eq('id', user.id)
       .single()
@@ -78,7 +78,7 @@ serve(async (req) => {
 
       // Update profile with customer ID
       await supabaseClient
-        .from('profiles')
+        .from('user_profiles')
         .update({ stripe_customer_id: customer.id })
         .eq('id', user.id)
     }
@@ -101,7 +101,7 @@ serve(async (req) => {
     })
 
     return new Response(
-      JSON.stringify({ sessionId: session.id }),
+      JSON.stringify({ url: session.url }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }

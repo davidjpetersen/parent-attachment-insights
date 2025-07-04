@@ -49,7 +49,7 @@ serve(async (req) => {
 
     // Get customer ID from profile
     const { data: profile } = await supabaseClient
-      .from('profiles')
+      .from('user_profiles')
       .select('stripe_customer_id')
       .eq('id', user.id)
       .single()
