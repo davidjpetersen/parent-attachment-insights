@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Users, Shield, UserPlus, Database, BarChart3 } from "lucide-react";
+import { Users, Shield, UserPlus, Database, BarChart3, FileText, Image, Video, Mic, MessageCircle, Star, BookOpen, Headphones, Moon, FileQuestion } from "lucide-react";
 
 interface User {
   id: string;
@@ -223,6 +223,7 @@ const AdminDashboard = () => {
       <Tabs defaultValue="users" className="space-y-4">
         <TabsList>
           <TabsTrigger value="users">User Management</TabsTrigger>
+          <TabsTrigger value="content">Content Management</TabsTrigger>
           <TabsTrigger value="settings">System Settings</TabsTrigger>
         </TabsList>
 
@@ -360,6 +361,95 @@ const AdminDashboard = () => {
                   ))}
                 </TableBody>
               </Table>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="content" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="h-5 w-5" />
+                Content Management
+              </CardTitle>
+              <CardDescription>
+                Manage all content types across the platform
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Landing Pages */}
+                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
+                  <FileText className="h-6 w-6 text-primary" />
+                  <span className="font-medium">Landing Pages</span>
+                </Button>
+
+                {/* Book Summaries */}
+                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
+                  <BookOpen className="h-6 w-6 text-primary" />
+                  <span className="font-medium">Book Summaries</span>
+                </Button>
+
+                {/* Blog Pages */}
+                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
+                  <FileText className="h-6 w-6 text-primary" />
+                  <span className="font-medium">Blog Pages</span>
+                </Button>
+
+                {/* White Noise Files */}
+                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
+                  <Headphones className="h-6 w-6 text-primary" />
+                  <span className="font-medium">White Noise Files</span>
+                </Button>
+
+                {/* Podcasts */}
+                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
+                  <Mic className="h-6 w-6 text-primary" />
+                  <span className="font-medium">Podcasts</span>
+                </Button>
+
+                {/* Prompts */}
+                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
+                  <MessageCircle className="h-6 w-6 text-primary" />
+                  <span className="font-medium">Prompts</span>
+                </Button>
+
+                {/* Bedtime */}
+                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
+                  <Moon className="h-6 w-6 text-primary" />
+                  <span className="font-medium">Bedtime</span>
+                </Button>
+
+                {/* How Tos */}
+                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
+                  <FileQuestion className="h-6 w-6 text-primary" />
+                  <span className="font-medium">How Tos</span>
+                </Button>
+
+                {/* Videos */}
+                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
+                  <Video className="h-6 w-6 text-primary" />
+                  <span className="font-medium">Videos</span>
+                </Button>
+
+                {/* Discussion Board Topics */}
+                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
+                  <MessageCircle className="h-6 w-6 text-primary" />
+                  <span className="font-medium">Discussion Topics</span>
+                </Button>
+
+                {/* Spotlights */}
+                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
+                  <Star className="h-6 w-6 text-primary" />
+                  <span className="font-medium">Spotlights</span>
+                </Button>
+
+                {/* Images */}
+                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
+                  <Image className="h-6 w-6 text-primary" />
+                  <span className="font-medium">Images</span>
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
