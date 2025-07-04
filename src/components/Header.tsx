@@ -151,8 +151,8 @@ const Header = () => {
                 <Menu className="w-6 h-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-full">
-              <div className="flex flex-col space-y-6 mt-8">
+            <SheetContent side="top" className="w-full h-auto">
+              <div className="flex flex-col space-y-6 mt-4">
                 {/* Mobile Primary CTA */}
                 <Button 
                   onClick={() => {
