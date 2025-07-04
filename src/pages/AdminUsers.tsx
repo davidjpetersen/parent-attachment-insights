@@ -8,7 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Users, Shield, UserPlus, Database, ArrowLeft } from "lucide-react";
+import { Users, Shield, UserPlus, Database, ArrowLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface User {
@@ -130,26 +130,28 @@ const AdminUsers = () => {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/admin" className="flex items-center gap-2">
-              <ArrowLeft className="w-4 h-4" />
-              Back to Admin
-            </Link>
-          </Button>
+    <div className="w-full">
+      <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
+        {/* Breadcrumbs */}
+        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-4">
+          <Link to="/admin" className="hover:text-foreground transition-colors">
+            Admin
+          </Link>
+          <ChevronRight className="w-4 h-4" />
+          <span className="text-foreground font-medium">Manage Users</span>
+        </nav>
+
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Manage Users</h1>
-            <p className="text-muted-foreground">Assign roles and manage user accounts</p>
+            <h1 className="text-4xl font-bold text-foreground mb-2">Manage Users</h1>
+            <p className="text-lg text-muted-foreground">Assign roles and manage user accounts</p>
           </div>
+          <Badge variant="secondary" className="bg-primary/10 text-primary">
+            <Users className="w-4 h-4 mr-2" />
+            {users.length} Users
+          </Badge>
         </div>
-        <Badge variant="secondary" className="bg-primary/10 text-primary">
-          <Users className="w-4 h-4 mr-2" />
-          {users.length} Users
-        </Badge>
-      </div>
 
       {/* Role Assignment */}
       <Card>
@@ -287,6 +289,7 @@ const AdminUsers = () => {
           </Table>
         </CardContent>
       </Card>
+    </div>
     </div>
   );
 };

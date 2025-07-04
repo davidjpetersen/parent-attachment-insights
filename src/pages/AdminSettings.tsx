@@ -12,7 +12,8 @@ import {
   Bell, 
   Database,
   ArrowLeft,
-  Save
+  Save,
+  ChevronRight
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -48,26 +49,28 @@ const AdminSettings = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/admin" className="flex items-center gap-2">
-              <ArrowLeft className="w-4 h-4" />
-              Back to Admin
-            </Link>
-          </Button>
+    <div className="w-full">
+      <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
+        {/* Breadcrumbs */}
+        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-4">
+          <Link to="/admin" className="hover:text-foreground transition-colors">
+            Admin
+          </Link>
+          <ChevronRight className="w-4 h-4" />
+          <span className="text-foreground font-medium">System Settings</span>
+        </nav>
+
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">System Settings</h1>
-            <p className="text-muted-foreground">Configure global site preferences and options</p>
+            <h1 className="text-4xl font-bold text-foreground mb-2">System Settings</h1>
+            <p className="text-lg text-muted-foreground">Configure global site preferences and options</p>
           </div>
+          <Button onClick={handleSave} className="flex items-center gap-2">
+            <Save className="w-4 h-4" />
+            Save Changes
+          </Button>
         </div>
-        <Button onClick={handleSave} className="flex items-center gap-2">
-          <Save className="w-4 h-4" />
-          Save Changes
-        </Button>
-      </div>
 
       <div className="max-w-4xl space-y-6">
         {/* General Settings */}
@@ -257,6 +260,7 @@ const AdminSettings = () => {
           </CardContent>
         </Card>
       </div>
+    </div>
     </div>
   );
 };

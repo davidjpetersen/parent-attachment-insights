@@ -13,7 +13,8 @@ import {
   Star, 
   Image,
   ArrowLeft,
-  ArrowRight
+  ArrowRight,
+  ChevronRight
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -113,27 +114,25 @@ const AdminContent = () => {
   ];
 
   return (
-    <div className="container mx-auto p-6 space-y-8">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/admin" className="flex items-center gap-2">
-              <ArrowLeft className="w-4 h-4" />
-              Back to Admin
-            </Link>
-          </Button>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Content Management</h1>
-            <p className="text-muted-foreground mt-1">Create, edit, and manage all content across the platform</p>
-          </div>
-        </div>
-      </div>
+    <div className="w-full">
+      <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
+        {/* Breadcrumbs */}
+        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-4">
+          <Link to="/admin" className="hover:text-foreground transition-colors">
+            Admin
+          </Link>
+          <ChevronRight className="w-4 h-4" />
+          <span className="text-foreground font-medium">Content Management</span>
+        </nav>
 
-      {/* Start with the basics */}
-      <div className="space-y-4">
-        <h2 className="text-2xl font-semibold">Start with the basics</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-foreground mb-2">Content Management</h1>
+          <p className="text-lg text-muted-foreground">Create, edit, and manage all content across the platform</p>
+        </div>        {/* Start with the basics */}
+        <div className="space-y-4">
+          <h2 className="text-2xl font-semibold">Start with the basics</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl justify-items-start">
           {featuredContent.map((content) => {
             const IconComponent = content.icon;
             
@@ -174,12 +173,10 @@ const AdminContent = () => {
             );
           })}
         </div>
-      </div>
-
-      {/* Build content types */}
-      <div className="space-y-4">
-        <h2 className="text-2xl font-semibold">Manage content types</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl">
+      </div>        {/* Build content types */}
+        <div className="space-y-4">
+          <h2 className="text-2xl font-semibold">Manage content types</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl justify-items-start">
           {contentTypes.map((contentType) => {
             const IconComponent = contentType.icon;
             
@@ -232,12 +229,10 @@ const AdminContent = () => {
             );
           })}
         </div>
-      </div>
-
-      {/* Content Statistics */}
-      <div className="max-w-4xl">
-        <h3 className="text-xl font-semibold mb-4">Content Overview</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      </div>        {/* Content Statistics */}
+        <div className="max-w-4xl">
+          <h3 className="text-xl font-semibold mb-4">Content Overview</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-start">
           <Card className="border border-gray-200">
             <CardContent className="p-6">
               <div className="text-2xl font-bold text-foreground">24</div>
@@ -263,6 +258,7 @@ const AdminContent = () => {
           </Card>
         </div>
       </div>
+    </div>
     </div>
   );
 };

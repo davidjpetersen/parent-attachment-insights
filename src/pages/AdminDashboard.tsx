@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
-import { Users, Shield, BarChart3, FileText, Settings, ArrowRight } from "lucide-react";
+import { Users, Shield, BarChart3, FileText, Settings, ArrowRight, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {
@@ -87,18 +87,24 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-8">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
-          <p className="text-muted-foreground">Welcome back! What would you like to manage today?</p>
+    <div className="w-full">
+      <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
+        {/* Breadcrumbs */}
+        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-4">
+          <span className="text-foreground font-medium">Admin</span>
+        </nav>
+
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-4xl font-bold text-foreground mb-2">Admin Dashboard</h1>
+            <p className="text-lg text-muted-foreground">Welcome back! What would you like to manage today?</p>
+          </div>
+          <Badge variant="secondary" className="bg-primary/10 text-primary">
+            <Shield className="w-4 h-4 mr-2" />
+            Administrator
+          </Badge>
         </div>
-        <Badge variant="secondary" className="bg-primary/10 text-primary">
-          <Shield className="w-4 h-4 mr-2" />
-          Administrator
-        </Badge>
-      </div>
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -195,6 +201,7 @@ const AdminDashboard = () => {
           </Link>
         </div>
       </div>
+    </div>
     </div>
   );
 };

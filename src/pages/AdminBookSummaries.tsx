@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { BookOpen, ArrowLeft } from "lucide-react";
+import { BookOpen, ArrowLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BookTable } from "@/components/admin/BookTable";
 import { AddBookForm } from "@/components/admin/AddBookForm";
@@ -128,26 +128,29 @@ const AdminBookSummaries = () => {
   }
 
   return (
-    <div className="container mx-auto p-3 sm:p-6 space-y-4 sm:space-y-6">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center space-x-2 sm:space-x-4">
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/admin">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back
-            </Link>
-          </Button>
+    <div className="w-full">
+      <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
+        {/* Breadcrumbs */}
+        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-4">
+          <Link to="/admin" className="hover:text-foreground transition-colors">
+            Admin
+          </Link>
+          <ChevronRight className="w-4 h-4" />
+          <span className="text-foreground font-medium">Book Management</span>
+        </nav>
+
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Book Management</h1>
-            <p className="text-sm sm:text-base text-muted-foreground">Manage book summaries and content</p>
+            <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-2">Book Management</h1>
+            <p className="text-lg text-muted-foreground">Manage book summaries and content</p>
           </div>
+          <Badge variant="secondary" className="bg-primary/10 text-primary self-start sm:self-center">
+            <BookOpen className="w-4 h-4 mr-2" />
+            <span className="hidden sm:inline">Content Manager</span>
+            <span className="sm:hidden">Admin</span>
+          </Badge>
         </div>
-        <Badge variant="secondary" className="bg-primary/10 text-primary self-start sm:self-center">
-          <BookOpen className="w-4 h-4 mr-2" />
-          <span className="hidden sm:inline">Content Manager</span>
-          <span className="sm:hidden">Admin</span>
-        </Badge>
-      </div>
 
       <Tabs defaultValue="add-book" className="space-y-4">
         <TabsList className="grid w-full grid-cols-3">
@@ -190,7 +193,7 @@ const AdminBookSummaries = () => {
           <ContentTypesGrid />
         </TabsContent>
       </Tabs>
-
+    </div>
     </div>
   );
 };
