@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Users, Shield, UserPlus, Database, BarChart3, FileText, Image, Video, Mic, MessageCircle, Star, BookOpen, Headphones, Moon, FileQuestion } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface User {
   id: string;
@@ -385,9 +386,11 @@ const AdminDashboard = () => {
                 </Button>
 
                 {/* Book Summaries */}
-                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
-                  <BookOpen className="h-6 w-6 text-primary" />
-                  <span className="font-medium">Book Summaries</span>
+                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5" asChild>
+                  <Link to="/admin/book-summaries">
+                    <BookOpen className="h-6 w-6 text-primary" />
+                    <span className="font-medium">Book Summaries</span>
+                  </Link>
                 </Button>
 
                 {/* Blog Pages */}
