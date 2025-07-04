@@ -11,8 +11,8 @@ export const SUBSCRIPTION_PLANS = {
   MONTHLY: {
     name: 'Monthly Premium',
     description: 'Full access to all parenting resources and tools',
-    price: '$14.99',
-    priceId: 'price_monthly', // This would be your actual Stripe price ID
+    price: '$3.99',
+    priceId: 'price_1RhI6RH1LqQzFlGCS0oNmwXP', // This would be your actual Stripe price ID
     interval: 'month',
     features: [
       'Access to all book summaries',
@@ -26,11 +26,11 @@ export const SUBSCRIPTION_PLANS = {
   YEARLY: {
     name: 'Yearly Premium',
     description: 'Full access with 2 months free',
-    price: '$149.99',
-    priceId: 'price_yearly', // This would be your actual Stripe price ID
+    price: '$39.99',
+    priceId: 'price_1RhIA3H1LqQzFlGCmWiu1qAo', // This would be your actual Stripe price ID
     interval: 'year',
-    originalPrice: '$179.88',
-    savings: 'Save $29.89',
+    originalPrice: '39.99',
+    savings: 'Save 20% with yearly plan',
     features: [
       'Everything in Monthly',
       '2 months FREE',
