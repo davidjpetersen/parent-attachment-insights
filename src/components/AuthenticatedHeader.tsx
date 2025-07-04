@@ -6,7 +6,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { User, Menu, LogOut, BookOpen, Users, FileText, Settings, ChevronDown } from "lucide-react";
+import { User, Menu, LogOut, BookOpen, Users, FileText, Settings, ChevronDown, CreditCard, Star } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
@@ -125,6 +125,18 @@ const AuthenticatedHeader = () => {
                   My Toolkit
                 </Link>
               </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/subscription" className="flex items-center">
+                  <Star className="w-4 h-4 mr-2" />
+                  Subscription
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/billing" className="flex items-center">
+                  <CreditCard className="w-4 h-4 mr-2" />
+                  Billing
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={signOut}>
                 <LogOut className="w-4 h-4 mr-2" />
@@ -161,6 +173,24 @@ const AuthenticatedHeader = () => {
                   >
                     <BookOpen className="w-6 h-6" />
                     <span>My Toolkit</span>
+                  </Link>
+
+                  <Link 
+                    to="/subscription" 
+                    className="flex items-center space-x-3 text-lg font-medium text-foreground hover:text-primary transition-colors py-3 min-h-[44px]"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Star className="w-6 h-6" />
+                    <span>Subscription</span>
+                  </Link>
+
+                  <Link 
+                    to="/billing" 
+                    className="flex items-center space-x-3 text-lg font-medium text-foreground hover:text-primary transition-colors py-3 min-h-[44px]"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <CreditCard className="w-6 h-6" />
+                    <span>Billing</span>
                   </Link>
 
                   {isAdmin && (

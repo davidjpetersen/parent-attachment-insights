@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./hooks/useAuth";
+import { StripeProvider } from "./hooks/useStripe";
 import { useUserRole } from "./hooks/useUserRole";
 import Header from "./components/Header";
 import Index from "./pages/Index";
@@ -12,12 +13,17 @@ import Bookshelf from "./pages/Bookshelf";
 import BookDetail from "./pages/BookDetail";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminUsers from "./pages/AdminUsers";
+import UserDetail from "./pages/UserDetail";
 import AdminContent from "./pages/AdminContent";
 import AdminSettings from "./pages/AdminSettings";
 import AdminBookSummaries from "./pages/AdminBookSummaries";
 import EditBookSummary from "./pages/EditBookSummary";
 import MembersDashboard from "./pages/MembersDashboard";
 import Auth from "./pages/Auth";
+import Subscription from "./pages/Subscription";
+import Billing from "./pages/Billing";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentCancel from "./pages/PaymentCancel";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -95,6 +101,26 @@ const AppContent = () => (
             <Bookshelf />
           </ProtectedRoute>
         } />
+        <Route path="/subscription" element={
+          <ProtectedRoute>
+            <Subscription />
+          </ProtectedRoute>
+        } />
+        <Route path="/billing" element={
+          <ProtectedRoute>
+            <Billing />
+          </ProtectedRoute>
+        } />
+        <Route path="/payment-success" element={
+          <ProtectedRoute>
+            <PaymentSuccess />
+          </ProtectedRoute>
+        } />
+        <Route path="/payment-cancel" element={
+          <ProtectedRoute>
+            <PaymentCancel />
+          </ProtectedRoute>
+        } />
         <Route path="/auth" element={
           <PublicRoute>
             <Auth />
@@ -108,6 +134,11 @@ const AppContent = () => (
         <Route path="/admin/users" element={
           <AdminRoute>
             <AdminUsers />
+          </AdminRoute>
+        } />
+        <Route path="/admin/users/:userId" element={
+          <AdminRoute>
+            <UserDetail />
           </AdminRoute>
         } />
         <Route path="/admin/content" element={
@@ -140,13 +171,15 @@ const AppContent = () => (
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AppContent />
-        </BrowserRouter>
-      </TooltipProvider>
+      <StripeProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AppContent />
+          </BrowserRouter>
+        </TooltipProvider>
+      </StripeProvider>
     </AuthProvider>
   </QueryClientProvider>
 );
