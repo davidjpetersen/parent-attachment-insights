@@ -11,6 +11,9 @@ import Quiz from "./pages/Quiz";
 import Bookshelf from "./pages/Bookshelf";
 import BookDetail from "./pages/BookDetail";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminUsers from "./pages/AdminUsers";
+import AdminContent from "./pages/AdminContent";
+import AdminSettings from "./pages/AdminSettings";
 import AdminBookSummaries from "./pages/AdminBookSummaries";
 import EditBookSummary from "./pages/EditBookSummary";
 import MembersDashboard from "./pages/MembersDashboard";
@@ -100,6 +103,21 @@ const AppContent = () => (
         <Route path="/admin" element={
           <AdminRoute>
             <AdminDashboard />
+          </AdminRoute>
+        } />
+        <Route path="/admin/users" element={
+          <AdminRoute>
+            <AdminUsers />
+          </AdminRoute>
+        } />
+        <Route path="/admin/content" element={
+          <AdminRoute>
+            <AdminContent />
+          </AdminRoute>
+        } />
+        <Route path="/admin/settings" element={
+          <AdminRoute>
+            <AdminSettings />
           </AdminRoute>
         } />
         <Route path="/admin/book-summaries" element={

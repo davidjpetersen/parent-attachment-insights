@@ -1,75 +1,17 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Users, Shield, UserPlus, Database, BarChart3, FileText, Image, Video, Mic, MessageCircle, Star, BookOpen, Headphones, Moon, FileQuestion } from "lucide-react";
+import { Users, Shield, BarChart3, FileText, Settings, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-interface User {
-  id: string;
-  email: string;
-  full_name?: string;
-  created_at: string;
-  roles?: string[];
-}
-
 const AdminDashboard = () => {
-  const [users, setUsers] = useState<User[]>([]);
   const [userStats, setUserStats] = useState({ total: 0, admins: 0, newThisWeek: 0 });
-  const [newUserEmail, setNewUserEmail] = useState("");
-  const [newUserRole, setNewUserRole] = useState<'user' | 'admin' | 'moderator'>('user');
   const [loading, setLoading] = useState(true);
-  const { toast } = useToast();
 
   useEffect(() => {
-    fetchUsers();
     fetchUserStats();
   }, []);
-
-  const fetchUsers = async () => {
-    try {
-      const { data: profilesData, error: profilesError } = await supabase
-        .from('user_profiles')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (profilesError) {
-        console.error('Error fetching profiles:', profilesError);
-        return;
-      }
-
-      const { data: rolesData, error: rolesError } = await supabase
-        .from('user_roles')
-        .select('user_id, role');
-
-      if (rolesError) {
-        console.error('Error fetching roles:', rolesError);
-        return;
-      }
-
-      // Combine user profiles with roles
-      const usersWithRoles = profilesData?.map(profile => ({
-        id: profile.id,
-        email: profile.id, // This would be the user's email from auth.users if we could access it
-        full_name: profile.full_name,
-        created_at: profile.created_at,
-        roles: rolesData?.filter(role => role.user_id === profile.id).map(r => r.role) || []
-      })) || [];
-
-      setUsers(usersWithRoles);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const fetchUserStats = async () => {
     try {
@@ -102,59 +44,37 @@ const AdminDashboard = () => {
       setUserStats({ total, admins, newThisWeek });
     } catch (error) {
       console.error('Error fetching user stats:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const assignRole = async (userId: string, role: 'user' | 'admin' | 'moderator') => {
-    try {
-      const { error } = await supabase
-        .from('user_roles')
-        .upsert({ 
-          user_id: userId, 
-          role: role 
-        });
-
-      if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: `Role ${role} assigned successfully`,
-      });
-
-      fetchUsers(); // Refresh the list
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to assign role",
-        variant: "destructive",
-      });
+  const adminTools = [
+    {
+      title: "Manage Users",
+      description: "Assign roles and manage user accounts",
+      icon: Users,
+      href: "/admin/users",
+      color: "text-blue-600",
+      bgColor: "bg-blue-50"
+    },
+    {
+      title: "Manage Content",
+      description: "Review and update site content",
+      icon: FileText,
+      href: "/admin/content",
+      color: "text-green-600",
+      bgColor: "bg-green-50"
+    },
+    {
+      title: "System Settings",
+      description: "Configure global site preferences",
+      icon: Settings,
+      href: "/admin/settings",
+      color: "text-purple-600",
+      bgColor: "bg-purple-50"
     }
-  };
-
-  const removeRole = async (userId: string, role: 'user' | 'admin' | 'moderator') => {
-    try {
-      const { error } = await supabase
-        .from('user_roles')
-        .delete()
-        .eq('user_id', userId)
-        .eq('role', role);
-
-      if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: `Role ${role} removed successfully`,
-      });
-
-      fetchUsers(); // Refresh the list
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to remove role",
-        variant: "destructive",
-      });
-    }
-  };
+  ];
 
   if (loading) {
     return (
@@ -167,11 +87,12 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="container mx-auto p-6 space-y-8">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
-          <p className="text-muted-foreground">Manage users, roles, and system settings</p>
+          <p className="text-muted-foreground">Welcome back! What would you like to manage today?</p>
         </div>
         <Badge variant="secondary" className="bg-primary/10 text-primary">
           <Shield className="w-4 h-4 mr-2" />
@@ -179,7 +100,7 @@ const AdminDashboard = () => {
         </Badge>
       </div>
 
-      {/* Stats Cards */}
+      {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -221,258 +142,59 @@ const AdminDashboard = () => {
         </Card>
       </div>
 
-      <Tabs defaultValue="users" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="users">User Management</TabsTrigger>
-          <TabsTrigger value="content">Content Management</TabsTrigger>
-          <TabsTrigger value="settings">System Settings</TabsTrigger>
-        </TabsList>
+      {/* Admin Tools Grid */}
+      <div>
+        <h2 className="text-2xl font-semibold mb-6">Admin Tools</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {adminTools.map((tool) => {
+            const IconComponent = tool.icon;
+            
+            return (
+              <Link key={tool.title} to={tool.href}>
+                <Card className="group cursor-pointer hover:shadow-lg transition-all duration-200 border-2 hover:border-primary/20">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-12 h-12 rounded-lg ${tool.bgColor} flex items-center justify-center`}>
+                        <IconComponent className={`w-6 h-6 ${tool.color}`} />
+                      </div>
+                      <div className="flex-1">
+                        <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                          {tool.title}
+                        </CardTitle>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <CardDescription className="text-base">
+                      {tool.description}
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
 
-        <TabsContent value="users" className="space-y-4">
-          {/* Role Assignment */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <UserPlus className="h-5 w-5" />
-                Assign User Role
-              </CardTitle>
-              <CardDescription>
-                Assign roles to existing users in the system
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex gap-4">
-              <div className="flex-1">
-                <Label htmlFor="userEmail">User Email</Label>
-                <Input
-                  id="userEmail"
-                  placeholder="Enter user email"
-                  value={newUserEmail}
-                  onChange={(e) => setNewUserEmail(e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="role">Role</Label>
-                <Select value={newUserRole} onValueChange={(value) => {
-                  if (value === 'user' || value === 'admin' || value === 'moderator') {
-                    setNewUserRole(value);
-                  }
-                }}>
-                  <SelectTrigger className="w-32">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="user">User</SelectItem>
-                    <SelectItem value="moderator">Moderator</SelectItem>
-                    <SelectItem value="admin">Admin</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex items-end">
-                <Button
-                  onClick={() => {
-                    const user = users.find(u => u.email === newUserEmail);
-                    if (user) {
-                      assignRole(user.id, newUserRole);
-                      setNewUserEmail("");
-                    } else {
-                      toast({
-                        title: "Error",
-                        description: "User not found",
-                        variant: "destructive",
-                      });
-                    }
-                  }}
-                  disabled={!newUserEmail}
-                >
-                  Assign Role
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Users Table */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Database className="h-5 w-5" />
-                All Users
-              </CardTitle>
-              <CardDescription>
-                View and manage all registered users
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>User</TableHead>
-                    <TableHead>Joined</TableHead>
-                    <TableHead>Roles</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {users.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell>
-                        <div>
-                          <div className="font-medium">{user.full_name || 'No name'}</div>
-                          <div className="text-sm text-muted-foreground">ID: {user.id.slice(0, 8)}...</div>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        {new Date(user.created_at).toLocaleDateString()}
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex flex-wrap gap-1">
-                          {user.roles && user.roles.length > 0 ? (
-                            user.roles.map((role) => (
-                              <Badge 
-                                key={role} 
-                                variant={role === 'admin' ? 'default' : 'secondary'}
-                                className="text-xs"
-                              >
-                                {role}
-                              </Badge>
-                            ))
-                          ) : (
-                            <Badge variant="outline" className="text-xs">user</Badge>
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex gap-2">
-                          <Select onValueChange={(role) => {
-                            if (role === 'user' || role === 'admin' || role === 'moderator') {
-                              assignRole(user.id, role);
-                            }
-                          }}>
-                            <SelectTrigger className="w-32">
-                              <SelectValue placeholder="Add role" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="user">User</SelectItem>
-                              <SelectItem value="moderator">Moderator</SelectItem>
-                              <SelectItem value="admin">Admin</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="content" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5" />
-                Content Management
-              </CardTitle>
-              <CardDescription>
-                Manage all content types across the platform
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {/* Landing Pages */}
-                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
-                  <FileText className="h-6 w-6 text-primary" />
-                  <span className="font-medium">Landing Pages</span>
-                </Button>
-
-                {/* Book Summaries */}
-                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5" asChild>
-                  <Link to="/admin/book-summaries">
-                    <BookOpen className="h-6 w-6 text-primary" />
-                    <span className="font-medium">Book Summaries</span>
-                  </Link>
-                </Button>
-
-                {/* Blog Pages */}
-                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
-                  <FileText className="h-6 w-6 text-primary" />
-                  <span className="font-medium">Blog Pages</span>
-                </Button>
-
-                {/* White Noise Files */}
-                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
-                  <Headphones className="h-6 w-6 text-primary" />
-                  <span className="font-medium">White Noise Files</span>
-                </Button>
-
-                {/* Podcasts */}
-                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
-                  <Mic className="h-6 w-6 text-primary" />
-                  <span className="font-medium">Podcasts</span>
-                </Button>
-
-                {/* Prompts */}
-                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
-                  <MessageCircle className="h-6 w-6 text-primary" />
-                  <span className="font-medium">Prompts</span>
-                </Button>
-
-                {/* Bedtime */}
-                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
-                  <Moon className="h-6 w-6 text-primary" />
-                  <span className="font-medium">Bedtime</span>
-                </Button>
-
-                {/* How Tos */}
-                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
-                  <FileQuestion className="h-6 w-6 text-primary" />
-                  <span className="font-medium">How Tos</span>
-                </Button>
-
-                {/* Videos */}
-                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
-                  <Video className="h-6 w-6 text-primary" />
-                  <span className="font-medium">Videos</span>
-                </Button>
-
-                {/* Discussion Board Topics */}
-                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
-                  <MessageCircle className="h-6 w-6 text-primary" />
-                  <span className="font-medium">Discussion Topics</span>
-                </Button>
-
-                {/* Spotlights */}
-                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
-                  <Star className="h-6 w-6 text-primary" />
-                  <span className="font-medium">Spotlights</span>
-                </Button>
-
-                {/* Images */}
-                <Button variant="outline" className="h-24 flex-col gap-2 hover:bg-primary/5">
-                  <Image className="h-6 w-6 text-primary" />
-                  <span className="font-medium">Images</span>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="settings">
-          <Card>
-            <CardHeader>
-              <CardTitle>System Settings</CardTitle>
-              <CardDescription>
-                Configure system-wide settings and preferences
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-muted-foreground text-center py-8">
-                System settings panel coming soon...
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+      {/* Quick Actions Section */}
+      <div className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg p-6">
+        <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link to="/admin/users" className="text-sm text-primary hover:underline">
+            → View all users and assign roles
+          </Link>
+          <Link to="/admin/content" className="text-sm text-primary hover:underline">
+            → Manage book summaries and content
+          </Link>
+          <Link to="/admin/settings" className="text-sm text-primary hover:underline">
+            → Configure system settings
+          </Link>
+          <Link to="/admin/book-summaries" className="text-sm text-primary hover:underline">
+            → Edit book summaries directly
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
