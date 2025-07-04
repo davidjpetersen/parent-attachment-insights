@@ -197,6 +197,16 @@ const Header = () => {
                         <User className="w-5 h-5" />
                         <span>My Toolkit</span>
                       </Link>
+                      {isAdmin && (
+                        <Link 
+                          to="/admin" 
+                          className="flex items-center space-x-3 text-lg font-medium text-foreground hover:text-primary transition-colors"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <User className="w-5 h-5" />
+                          <span>Admin Dashboard</span>
+                        </Link>
+                      )}
                       <Button 
                         variant="outline" 
                         className="w-full" 
