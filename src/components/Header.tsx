@@ -147,8 +147,8 @@ const Header = () => {
           {/* Mobile menu button */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="sm" className="md:hidden">
-                <Menu className="w-4 h-4" />
+              <Button variant="ghost" className="md:hidden p-3 min-h-[44px] min-w-[44px]">
+                <Menu className="w-6 h-6" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-full">
@@ -166,24 +166,24 @@ const Header = () => {
                 
                 <div className="border-t pt-4 space-y-4">
                   <button 
-                    className="flex items-center space-x-3 text-lg font-medium text-foreground hover:text-primary transition-colors w-full text-left"
+                    className="flex items-center space-x-3 text-lg font-medium text-foreground hover:text-primary transition-colors w-full text-left py-3 min-h-[44px]"
                     onClick={() => {
                       document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
                       setIsOpen(false);
                     }}
                   >
-                    <HelpCircle className="w-5 h-5" />
+                    <HelpCircle className="w-6 h-6" />
                     <span>How It Works</span>
                   </button>
                   
                   <button 
-                    className="flex items-center space-x-3 text-lg font-medium text-foreground hover:text-primary transition-colors w-full text-left"
+                    className="flex items-center space-x-3 text-lg font-medium text-foreground hover:text-primary transition-colors w-full text-left py-3 min-h-[44px]"
                     onClick={() => {
                       document.getElementById('why-free')?.scrollIntoView({ behavior: 'smooth' });
                       setIsOpen(false);
                     }}
                   >
-                    <Info className="w-5 h-5" />
+                    <Info className="w-6 h-6" />
                     <span>Why It's Free</span>
                   </button>
 

@@ -64,11 +64,11 @@ const Landing = () => {
       {/* Section 1: Above the Fold (Hero) */}
       <section className="relative bg-gradient-hero text-white py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             Turn Chaos Hour Into Calm—<br />
             <span className="text-white">in Just 3 Minutes a Day</span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
             Take our quiz to get a personalized parenting toolkit that matches your family's real needs.
           </p>
           
@@ -100,7 +100,7 @@ const Landing = () => {
       {/* Section 2: Why It Works */}
       <section id="how-it-works" className="py-20 px-4 bg-background">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-foreground">Why It Works</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-12 text-foreground">Why It Works</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="p-6 text-center">
@@ -108,8 +108,8 @@ const Landing = () => {
                 <div className="p-4 bg-primary/10 rounded-full w-fit mx-auto mb-4">
                   <Brain className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Science-Backed</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-lg sm:text-xl font-bold mb-3 text-foreground">Science-Backed</h3>
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Built with psychology and parenting research from leading experts
                 </p>
               </CardContent>
@@ -120,8 +120,8 @@ const Landing = () => {
                 <div className="p-4 bg-accent/10 rounded-full w-fit mx-auto mb-4">
                   <Lightbulb className="w-8 h-8 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Custom-Fit</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-lg sm:text-xl font-bold mb-3 text-foreground">Custom-Fit</h3>
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Matches your values, roles, and family type perfectly
                 </p>
               </CardContent>
@@ -132,8 +132,8 @@ const Landing = () => {
                 <div className="p-4 bg-secondary/10 rounded-full w-fit mx-auto mb-4">
                   <Heart className="w-8 h-8 text-secondary" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">Emotionally Attuned</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-lg sm:text-xl font-bold mb-3 text-foreground">Emotionally Attuned</h3>
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Supports the real you, not a parenting ideal
                 </p>
               </CardContent>
@@ -145,7 +145,7 @@ const Landing = () => {
       {/* Section 3: What You'll Get */}
       <section className="py-20 px-4 bg-gradient-subtle">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-foreground">What You'll Get</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-12 text-foreground">What You'll Get</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="p-6 text-center bg-primary-soft border-primary/20">
@@ -200,7 +200,7 @@ const Landing = () => {
       {/* Section 4: Testimonials */}
       <section className="py-20 px-4 bg-background">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-foreground">What Parents Are Saying</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-12 text-center text-foreground">What Parents Are Saying</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card className="p-6">
@@ -239,7 +239,7 @@ const Landing = () => {
       {/* Section 5: FAQ */}
       <section id="why-free" className="py-20 px-4 bg-gradient-subtle">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-foreground">Frequently Asked Questions</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-12 text-center text-foreground">Frequently Asked Questions</h2>
           
           <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="bg-background border rounded-lg px-6">
@@ -293,10 +293,10 @@ const Landing = () => {
       {/* Final CTA Section */}
       <section id="quiz-section" className="py-20 px-4 bg-background">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-foreground">
             Ready to Transform Your Family Life?
           </h2>
-          <p className="text-xl text-muted-foreground mb-8">
+          <p className="text-lg sm:text-xl text-muted-foreground mb-8">
             Join thousands of parents who've found their calm. Take the 3-minute quiz and get your personalized toolkit today.
           </p>
           
