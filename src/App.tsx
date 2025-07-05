@@ -16,7 +16,8 @@ import AdminUsers from "./pages/AdminUsers";
 import UserDetail from "./pages/UserDetail";
 import AdminContent from "./pages/AdminContent";
 import AdminSettings from "./pages/AdminSettings";
-import AdminBookSummaries from "./pages/AdminBookSummaries";
+import AdminBooks from "./pages/AdminBooks";
+import AdminAddBook from "./pages/AdminAddBook";
 import EditBookSummary from "./pages/EditBookSummary";
 import MembersDashboard from "./pages/MembersDashboard";
 import Auth from "./pages/Auth";
@@ -151,9 +152,14 @@ const AppContent = () => (
             <AdminSettings />
           </AdminRoute>
         } />
-        <Route path="/admin/book-summaries" element={
+        <Route path="/admin/books" element={
           <AdminRoute>
-            <AdminBookSummaries />
+            <AdminBooks />
+          </AdminRoute>
+        } />
+        <Route path="/admin/books/add" element={
+          <AdminRoute>
+            <AdminAddBook />
           </AdminRoute>
         } />
         <Route path="/admin/book-summaries/edit/:bookId" element={
