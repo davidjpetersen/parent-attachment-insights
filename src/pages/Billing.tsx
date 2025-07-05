@@ -9,7 +9,7 @@ import {
   CheckCircle, 
   AlertCircle, 
   ExternalLink,
-  ArrowLeft,
+  ChevronRight,
   Settings,
   Download,
   Bell
@@ -46,19 +46,20 @@ const Billing = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto px-4 py-6 md:py-8">
+        {/* Breadcrumbs */}
+        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-6">
+          <Link to="/" className="hover:text-foreground transition-colors">
+            Home
+          </Link>
+          <ChevronRight className="w-4 h-4" />
+          <span className="text-foreground font-medium">Billing</span>
+        </nav>
+
         {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Dashboard
-            </Link>
-          </Button>
-          <div>
-            <h1 className="text-3xl font-bold">Billing & Subscription</h1>
-            <p className="text-muted-foreground">Manage your subscription and billing information</p>
-          </div>
+        <div className="mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold">Billing & Subscription</h1>
+          <p className="text-muted-foreground text-sm md:text-base">Manage your subscription and billing information</p>
         </div>
 
         <div className="grid gap-6">
@@ -100,7 +101,7 @@ const Billing = () => {
             <CardContent className="space-y-4">
               {subscription ? (
                 <>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     <div>
                       <p className="text-sm font-medium text-muted-foreground">Plan</p>
                       <p className="text-lg font-semibold">Premium</p>
@@ -117,7 +118,7 @@ const Billing = () => {
                   
                   <Separator />
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <p className="text-sm font-medium text-muted-foreground">Next Billing Date</p>
                       <p className="flex items-center gap-2">
@@ -189,7 +190,7 @@ const Billing = () => {
               <CardDescription>Features available with your current plan</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {subscription ? (
                   // Premium features
                   <>
