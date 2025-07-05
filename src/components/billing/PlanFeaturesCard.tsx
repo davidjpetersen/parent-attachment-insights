@@ -7,59 +7,46 @@ interface PlanFeaturesCardProps {
 
 const PlanFeaturesCard = ({ subscription }: PlanFeaturesCardProps) => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Your Plan Includes</CardTitle>
-        <CardDescription>Features available with your current plan</CardDescription>
+    <Card className="border-0 shadow-none">
+      <CardHeader className="px-0 pb-3">
+        <CardTitle className="text-lg font-medium">Features</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <CardContent className="px-0">
+        <div className="space-y-2">
           {subscription ? (
             // Premium features
             <>
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500" />
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="w-4 h-4 text-green-500" />
                 <span>Unlimited book summaries</span>
               </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500" />
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="w-4 h-4 text-green-500" />
                 <span>Personalized insights</span>
               </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500" />
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="w-4 h-4 text-green-500" />
                 <span>Progress tracking</span>
               </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500" />
-                <span>Expert guidance tools</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500" />
-                <span>Community access</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500" />
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="w-4 h-4 text-green-500" />
                 <span>Priority support</span>
               </div>
             </>
           ) : (
             // Free features
             <>
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500" />
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="w-4 h-4 text-green-500" />
                 <span>3 book summaries</span>
               </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500" />
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="w-4 h-4 text-green-500" />
                 <span>Basic parenting quiz</span>
               </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500" />
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="w-4 h-4 text-green-500" />
                 <span>Community access</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500" />
-                <span>Weekly newsletter</span>
               </div>
             </>
           )}

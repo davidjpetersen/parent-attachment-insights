@@ -12,35 +12,24 @@ const ManageSubscriptionCard = ({ subscription, onManageBilling, isProcessing }:
   if (!subscription) return null;
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Settings className="w-5 h-5" />
-          Manage Subscription
-        </CardTitle>
-        <CardDescription>
-          Update payment method, view invoices, or cancel subscription
-        </CardDescription>
+    <Card className="border-0 shadow-none">
+      <CardHeader className="px-0 pb-3">
+        <CardTitle className="text-lg font-medium">Manage</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="flex flex-col sm:flex-row gap-4">
+      <CardContent className="px-0">
+        <div className="flex gap-3">
           <Button
             onClick={onManageBilling}
             disabled={isProcessing}
-            className="flex items-center gap-2"
+            size="sm"
+            variant="outline"
           >
-            <ExternalLink className="w-4 h-4" />
-            {isProcessing ? 'Loading...' : 'Manage Billing'}
+            {isProcessing ? 'Loading...' : 'Billing Portal'}
           </Button>
-          <Button variant="outline" className="flex items-center gap-2">
-            <Download className="w-4 h-4" />
-            Download Receipts
+          <Button variant="outline" size="sm">
+            Receipts
           </Button>
         </div>
-        <p className="text-sm text-muted-foreground mt-3">
-          The billing portal allows you to update payment methods, view invoices, 
-          and manage your subscription settings securely.
-        </p>
       </CardContent>
     </Card>
   );

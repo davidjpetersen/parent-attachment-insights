@@ -5,7 +5,7 @@ import BillingHeader from '@/components/billing/BillingHeader';
 import CurrentPlanCard from '@/components/billing/CurrentPlanCard';
 import ManageSubscriptionCard from '@/components/billing/ManageSubscriptionCard';
 import PlanFeaturesCard from '@/components/billing/PlanFeaturesCard';
-import BillingNotificationsCard from '@/components/billing/BillingNotificationsCard';
+
 import BillingSupportCard from '@/components/billing/BillingSupportCard';
 
 const Billing = () => {
@@ -31,10 +31,10 @@ const Billing = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-4xl mx-auto px-4 py-6 md:py-8">
+      <div className="max-w-2xl mx-auto px-4 py-6 md:py-8">
         <BillingHeader />
         
-        <div className="grid gap-6">
+        <div className="space-y-6">
           <CurrentPlanCard subscription={subscription} />
           
           <ManageSubscriptionCard 
@@ -44,8 +44,6 @@ const Billing = () => {
           />
           
           <PlanFeaturesCard subscription={subscription} />
-          
-          <BillingNotificationsCard />
           
           <BillingSupportCard />
         </div>
