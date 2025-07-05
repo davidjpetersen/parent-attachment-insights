@@ -9,6 +9,7 @@ import { BookOpen, ArrowLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BookTable } from "@/components/admin/BookTable";
 import { AddBookForm } from "@/components/admin/AddBookForm";
+import { JsonBookUpload } from "@/components/admin/JsonBookUpload";
 import { ContentTypesGrid } from "@/components/admin/ContentTypesGrid";
 
 interface Book {
@@ -153,8 +154,9 @@ const AdminBookSummaries = () => {
         </div>
 
       <Tabs defaultValue="add-book" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="add-book" className="text-xs sm:text-sm">Add Book</TabsTrigger>
+          <TabsTrigger value="json-upload" className="text-xs sm:text-sm">JSON Upload</TabsTrigger>
           <TabsTrigger value="books" className="text-xs sm:text-sm">All Books</TabsTrigger>
           <TabsTrigger value="content-types" className="text-xs sm:text-sm">Content</TabsTrigger>
         </TabsList>
@@ -187,6 +189,10 @@ const AdminBookSummaries = () => {
             onAuthorChange={setNewBookAuthor}
             onAddBook={addBook}
           />
+        </TabsContent>
+
+        <TabsContent value="json-upload" className="space-y-4">
+          <JsonBookUpload onBookAdded={fetchBooks} />
         </TabsContent>
 
         <TabsContent value="content-types" className="space-y-4">
