@@ -403,6 +403,7 @@ export type Database = {
           member_since: string | null
           parenting_style: string | null
           quiz_completed: boolean | null
+          stripe_customer_id: string | null
           subscription_status: string | null
           updated_at: string | null
         }
@@ -414,6 +415,7 @@ export type Database = {
           member_since?: string | null
           parenting_style?: string | null
           quiz_completed?: boolean | null
+          stripe_customer_id?: string | null
           subscription_status?: string | null
           updated_at?: string | null
         }
@@ -425,6 +427,7 @@ export type Database = {
           member_since?: string | null
           parenting_style?: string | null
           quiz_completed?: boolean | null
+          stripe_customer_id?: string | null
           subscription_status?: string | null
           updated_at?: string | null
         }
