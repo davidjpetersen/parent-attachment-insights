@@ -84,7 +84,7 @@ const EditBookSummary = () => {
         description: error.message || "Failed to fetch book",
         variant: "destructive",
       });
-      navigate('/admin/book-summaries');
+      navigate('/admin/books');
     } finally {
       setLoading(false);
     }
@@ -118,7 +118,7 @@ const EditBookSummary = () => {
         description: "Book updated successfully",
       });
 
-      navigate('/admin/book-summaries');
+      navigate('/admin/books');
     } catch (error: any) {
       toast({
         title: "Error",
@@ -155,7 +155,7 @@ const EditBookSummary = () => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center space-x-2 sm:space-x-4">
           <Button variant="ghost" size="sm" asChild>
-            <Link to="/admin/book-summaries">
+            <Link to="/admin/books">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back
             </Link>
@@ -262,7 +262,7 @@ const EditBookSummary = () => {
                 <Button 
                   type="button" 
                   variant="outline" 
-                  onClick={() => navigate('/admin/book-summaries')}
+                  onClick={() => navigate('/admin/books')}
                   className="w-full sm:w-auto h-12 text-base"
                 >
                   Cancel

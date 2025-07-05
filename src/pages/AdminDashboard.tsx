@@ -196,8 +196,8 @@ const AdminDashboard = () => {
           <Link to="/admin/settings" className="text-sm text-primary hover:underline">
             → Configure system settings
           </Link>
-          <Link to="/admin/book-summaries" className="text-sm text-primary hover:underline">
-            → Edit book summaries directly
+          <Link to="/admin/books" className="text-sm text-primary hover:underline">
+            → Manage book collection
           </Link>
         </div>
       </div>

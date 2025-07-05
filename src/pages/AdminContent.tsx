@@ -24,7 +24,7 @@ const AdminContent = () => {
       title: "Book Summaries",
       description: "Create and edit book summaries for users",
       icon: BookOpen,
-      href: "/admin/book-summaries",
+      href: "/admin/books",
       available: true,
       gradient: "from-blue-500 to-purple-600"
     },
