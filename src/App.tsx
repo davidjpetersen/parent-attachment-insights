@@ -18,6 +18,7 @@ import AdminContent from "./pages/AdminContent";
 import AdminSettings from "./pages/AdminSettings";
 import AdminBooks from "./pages/AdminBooks";
 import AdminAddBook from "./pages/AdminAddBook";
+import AdminWhiteNoise from "./pages/AdminWhiteNoise";
 import EditBookSummary from "./pages/EditBookSummary";
 import AddBookPage from "./pages/AddBookPage";
 import EditBookPage from "./pages/EditBookPage";
@@ -173,6 +174,11 @@ const AppContent = () => (
         <Route path="/admin/books" element={
           <AdminRoute>
             <AdminBooks />
+          </AdminRoute>
+        } />
+        <Route path="/admin/white-noise" element={
+          <AdminRoute>
+            <AdminWhiteNoise />
           </AdminRoute>
         } />
         <Route path="/admin/books/add" element={

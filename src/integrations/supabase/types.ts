@@ -394,6 +394,71 @@ export type Database = {
           },
         ]
       }
+      white_noise_collections: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      white_noise_files: {
+        Row: {
+          collection_id: string | null
+          created_at: string
+          description: string | null
+          duration_seconds: number | null
+          encoding_format: string | null
+          file_url: string
+          id: string
+          language: string | null
+          title: string
+        }
+        Insert: {
+          collection_id?: string | null
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number | null
+          encoding_format?: string | null
+          file_url: string
+          id?: string
+          language?: string | null
+          title: string
+        }
+        Update: {
+          collection_id?: string | null
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number | null
+          encoding_format?: string | null
+          file_url?: string
+          id?: string
+          language?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "white_noise_files_collection_id_fkey"
+            columns: ["collection_id"]
+            isOneToOne: false
+            referencedRelation: "white_noise_collections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_profiles: {
         Row: {
           created_at: string | null
