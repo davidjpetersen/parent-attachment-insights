@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { BookOpen, ChevronRight, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BookTable } from "@/components/admin/BookTable";
+import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
 
 interface Book {
   id: string;
@@ -19,57 +20,44 @@ interface Book {
 }
 
 const AdminBooks = () => {
-  const [books, setBooks] = useState<Book[]>([]);
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  useEffect(() => {
-    fetchBooks();
-  }, []);
-
-  const fetchBooks = async () => {
-    try {
+  const {
+    data: books = [],
+    isLoading: loading,
+  } = useSupabaseQuery<Book[]>(
+    ['books'],
+    async () => {
       const { data, error } = await supabase
         .from('books')
         .select('*')
         .order('created_at', { ascending: false });
-
-      if (error) {
-        console.error('Error fetching books:', error);
-        return;
-      }
-
-      setBooks(data || []);
-    } catch (error) {
-      console.error('Error fetching books:', error);
-    } finally {
-      setLoading(false);
+      if (error) throw error;
+      return data || [];
     }
-  };
+  );
 
-  const deleteBook = async (book: Book) => {
-    try {
+  const deleteBookMutation = useMutation({
+    mutationFn: async (book: Book) => {
       const { error } = await supabase
         .from('books')
         .delete()
         .eq('id', book.id);
-
       if (error) throw error;
-
+    },
+    onSuccess: () => {
+      toast({ title: 'Success', description: 'Book deleted successfully' });
+      queryClient.invalidateQueries({ queryKey: ['books'] });
+    },
+    onError: (error: any) => {
       toast({
-        title: "Success",
-        description: "Book deleted successfully",
+        title: 'Error',
+        description: error.message || 'Failed to delete book',
+        variant: 'destructive',
       });
-
-      fetchBooks();
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to delete book",
-        variant: "destructive",
-      });
-    }
-  };
+    },
+  });
 
   if (loading) {
     return (
@@ -125,9 +113,9 @@ const AdminBooks = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <BookTable 
-              books={books} 
-              onDeleteBook={deleteBook} 
+            <BookTable
+              books={books}
+              onDeleteBook={(book) => deleteBookMutation.mutate(book)}
             />
           </CardContent>
         </Card>
