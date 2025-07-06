@@ -19,6 +19,9 @@ import AdminSettings from "./pages/AdminSettings";
 import AdminBooks from "./pages/AdminBooks";
 import AdminAddBook from "./pages/AdminAddBook";
 import EditBookSummary from "./pages/EditBookSummary";
+import AddBookPage from "./pages/AddBookPage";
+import EditBookPage from "./pages/EditBookPage";
+import ViewBookPage from "./pages/ViewBookPage";
 import MembersDashboard from "./pages/MembersDashboard";
 import Auth from "./pages/Auth";
 import Subscription from "./pages/Subscription";
@@ -90,6 +93,21 @@ const AppContent = () => (
         <Route path="/book/:bookId" element={
           <ProtectedRoute>
             <BookDetail />
+          </ProtectedRoute>
+        } />
+        <Route path="/books/new" element={
+          <ProtectedRoute>
+            <AddBookPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/books/:id/edit" element={
+          <ProtectedRoute>
+            <EditBookPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/books/:id" element={
+          <ProtectedRoute>
+            <ViewBookPage />
           </ProtectedRoute>
         } />
         <Route path="/quiz" element={
