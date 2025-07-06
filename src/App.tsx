@@ -19,6 +19,7 @@ import AdminSettings from "./pages/AdminSettings";
 import AdminBooks from "./pages/AdminBooks";
 import AdminAddBook from "./pages/AdminAddBook";
 import EditBookSummary from "./pages/EditBookSummary";
+import AdminLandingPages from "./pages/AdminLandingPages";
 import MembersDashboard from "./pages/MembersDashboard";
 import Auth from "./pages/Auth";
 import Subscription from "./pages/Subscription";
@@ -155,6 +156,11 @@ const AppContent = () => (
         <Route path="/admin/books" element={
           <AdminRoute>
             <AdminBooks />
+          </AdminRoute>
+        } />
+        <Route path="/admin/landing-pages" element={
+          <AdminRoute>
+            <AdminLandingPages />
           </AdminRoute>
         } />
         <Route path="/admin/books/add" element={

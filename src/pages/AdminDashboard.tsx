@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
-import { Users, Shield, BarChart3, FileText, Settings, ArrowRight, ChevronRight } from "lucide-react";
+import { Users, Shield, BarChart3, FileText, Settings, LayoutTemplate, ArrowRight, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {
@@ -73,6 +73,14 @@ const AdminDashboard = () => {
       href: "/admin/settings",
       color: "text-purple-600",
       bgColor: "bg-purple-50"
+    },
+    {
+      title: "Landing Page Builder",
+      description: "Create and edit landing pages",
+      icon: LayoutTemplate,
+      href: "/admin/landing-pages",
+      color: "text-red-600",
+      bgColor: "bg-red-50"
     }
   ];
 

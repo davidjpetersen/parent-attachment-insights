@@ -390,9 +390,33 @@ export type Database = {
             columns: ["book_id"]
             isOneToOne: false
             referencedRelation: "books"
-            referencedColumns: ["id"]
-          },
-        ]
+          referencedColumns: ["id"]
+        },
+      ]
+      }
+      landing_pages: {
+        Row: {
+          id: string
+          name: string
+          variant: string | null
+          content: Json | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          variant?: string | null
+          content?: Json | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          variant?: string | null
+          content?: Json | null
+          created_at?: string
+        }
+        Relationships: []
       }
       user_profiles: {
         Row: {
