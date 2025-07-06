@@ -43,8 +43,8 @@ const AdminContent = () => {
       title: "White Noise Files",
       description: "Upload and manage white noise audio files",
       icon: Headphones,
-      href: "#",
-      available: false,
+      href: "/admin/white-noise",
+      available: true,
       color: "bg-orange-100",
       iconColor: "text-orange-600"
     },
