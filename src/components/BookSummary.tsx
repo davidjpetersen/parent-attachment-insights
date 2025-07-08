@@ -8,7 +8,7 @@ import CoreConcepts from "./book-summary/CoreConcepts";
 import AgeApplications from "./book-summary/AgeApplications";
 import ImplementationGuide from "./book-summary/ImplementationGuide";
 import ExpertReflection from "./book-summary/ExpertReflection";
-import ChapterNavigation from "./book-summary/ChapterNavigation";
+import ChaptersCarousel from "./book-summary/ChaptersCarousel";
 import CallToAction from "./book-summary/CallToAction";
 
 interface BookSummaryProps {
@@ -40,7 +40,7 @@ const BookSummary = ({ data }: BookSummaryProps) => {
         <AgeApplications data={data} />
         <ImplementationGuide data={data} />
         <ExpertReflection data={data} />
-        <ChapterNavigation 
+        <ChaptersCarousel
           data={data}
           expandedChapter={expandedChapter}
           toggleChapter={toggleChapter}
